@@ -59,7 +59,6 @@ fastlane/test_output
 fastlane/readme.md
 
 # Android
-*.iml
 .gradle
 /local.properties
 /.idea/caches
@@ -68,9 +67,7 @@ fastlane/readme.md
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.idea
 .DS_Store
 /build
 /captures
-.externalNativeBuild
 .cxx

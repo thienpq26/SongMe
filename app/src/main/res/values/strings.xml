@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SongMe</string>
+    <string name="title_my_music">My music</string>
+    <string name="title_home">Home</string>
+    <string name="title_genres">Genres</string>
+    <string name="hint_input_search">Tìm kiếm bài hát …</string>
+    <string name="title_song_or_singer">Image song or singer</string>
 </resources>
