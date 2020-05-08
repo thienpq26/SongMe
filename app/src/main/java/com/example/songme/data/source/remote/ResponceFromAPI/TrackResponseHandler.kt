@@ -6,7 +6,6 @@ import com.example.songme.utils.Constants.CONNECT_TIMEOUT
 import com.example.songme.utils.Constants.READ_TIMEOUT
 import com.example.songme.utils.Constants.REQUEST_METHOD
 import org.json.JSONArray
-import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection

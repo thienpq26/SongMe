@@ -1,6 +1,7 @@
 package com.example.songme.data.model
 
-import org.json.JSONArray
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import org.json.JSONObject
 
 const val ID = "id"
@@ -17,6 +18,7 @@ const val TAG_LIST = "tag_list"
 const val USER = "user"
 const val AUTHOR = "username"
 
+@Parcelize
 data class Track(
     val id: String,
     val king: String,
@@ -26,11 +28,11 @@ data class Track(
     val duration: Long,
     val streamUrl: String,
     val uri: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val genres: String,
     val tagList: String,
     val author: String
-) {
+) : Parcelable {
     constructor(jsonObject: JSONObject) : this(
         id = jsonObject.optString(ID),
         king = jsonObject.optString(KING),
