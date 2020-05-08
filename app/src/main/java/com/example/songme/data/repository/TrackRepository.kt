@@ -22,7 +22,6 @@ class TrackRepository private constructor(private val dataSource: TrackDataSourc
     companion object {
         private var singleInstance: TrackRepository? = null
         fun getInstance(dataSource: TrackRemoteDataSource): TrackRepository {
-            //return singleInstance ?: TrackRepository(dataSource).apply { singleInstance = this }
             return singleInstance ?: TrackRepository(dataSource).also { singleInstance = it }
         }
     }

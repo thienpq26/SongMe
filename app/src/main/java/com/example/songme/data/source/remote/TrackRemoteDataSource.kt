@@ -14,6 +14,7 @@ import com.example.songme.utils.Constants.PATH_TRACK
 import com.example.songme.utils.Constants.SCHEME_HTTP
 
 class TrackRemoteDataSource private constructor() : TrackDataSource.Remote {
+
     override fun getTracks(keyword: String, callback: OnTracksLoadedCallback) {
         GetResponseAsync(
             TrackResponseHandler.getInstance(),
