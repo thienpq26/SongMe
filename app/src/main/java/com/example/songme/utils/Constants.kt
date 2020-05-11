@@ -10,4 +10,9 @@ object Constants {
     const val SCHEME_HTTP = "https"
     const val AUTHORITY_SOUNDCLOUD = "api.soundcloud.com"
     const val PATH_TRACK = "tracks"
+    const val VIEW_TYPE_REMOTE = 0
+    const val VIEW_TYPE_LOCAL = 1
+    const val FLAG_REMOTE = 0
+    const val FLAG_LOCAL = 1
+    const val TAG_ACTION_BOTTOM = "ActionBottomDialog"
 }

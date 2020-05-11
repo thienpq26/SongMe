@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.songme.R
 
-class GenresFragment : Fragment() {
+class GenresFragment private constructor() : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -3,7 +3,7 @@
     <color name="color_primary">#6200EE</color>
     <color name="color_primary_dark">#3700B3</color>
     <color name="color_accent">#03DAC5</color>
-    <color name="color_black">#111111</color>
     <color name="color_gray_background">#DDDDDD</color>
     <color name="color_gray_singer">#606C78</color>
+    <color name="color_purple">#810585</color>
 </resources>

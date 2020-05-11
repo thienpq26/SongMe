@@ -9,7 +9,7 @@
     </style>
 
     <style name="TextTitleStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/color_black</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">@dimen/sp_25</item>
         <item name="android:textStyle">bold</item>
     </style>

@@ -8,4 +8,8 @@
     <string name="title_tracks_trending">Trending</string>
     <string name="title_tracks_recently">Recently listened</string>
     <string name="description_image_track">Theme image of the song</string>
+    <string name="title_random_play">Nghe ngẫu nhiên</string>
+    <string name="title_share">Share</string>
+    <string name="title_delete">Delete</string>
+    <string name="title_play">Play</string>
 </resources>
