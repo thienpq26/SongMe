@@ -2,27 +2,35 @@ package com.example.songme.data.repository
 
 import com.example.songme.data.source.OnTracksLoadedCallback
 import com.example.songme.data.source.TrackDataSource
-import com.example.songme.data.source.remote.TrackRemoteDataSource
 
-class TrackRepository private constructor(private val dataSource: TrackDataSource.Remote) :
-    TrackDataSource.Remote {
+class TrackRepository private constructor(
+    private val local: TrackDataSource.Local,
+    private val remote: TrackDataSource.Remote
+) : TrackDataSource.Local, TrackDataSource.Remote {
 
-    override fun getTracks(keyword: String, callback: OnTracksLoadedCallback) {
-        dataSource.getTracks(keyword, callback)
+    override fun getLocalTracks(callback: OnTracksLoadedCallback) {
+        local.getLocalTracks(callback)
+    }
+
+    override fun getRemoteTracks(keyword: String, callback: OnTracksLoadedCallback) {
+        remote.getRemoteTracks(keyword, callback)
     }
 
     override fun getGenres(genres: String, callback: OnTracksLoadedCallback) {
-        dataSource.getGenres(genres, callback)
+        remote.getGenres(genres, callback)
     }
 
     override fun getTrending(callback: OnTracksLoadedCallback) {
-        dataSource.getTrending(callback)
+        remote.getTrending(callback)
     }
 
     companion object {
-        private var singleInstance: TrackRepository? = null
-        fun getInstance(dataSource: TrackRemoteDataSource): TrackRepository {
-            return singleInstance ?: TrackRepository(dataSource).also { singleInstance = it }
+        private var instance: TrackRepository? = null
+        fun getInstance(
+            local: TrackDataSource.Local,
+            remote: TrackDataSource.Remote
+        ): TrackRepository {
+            return instance ?: TrackRepository(local, remote).also { instance = it }
         }
     }
 }

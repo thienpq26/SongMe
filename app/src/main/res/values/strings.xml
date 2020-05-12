@@ -12,4 +12,9 @@
     <string name="title_share">Share</string>
     <string name="title_delete">Delete</string>
     <string name="title_play">Play</string>
+    <string name="title_permission">Permission needed</string>
+    <string name="title_permission_denied">Permission denied</string>
+    <string name="message_permission">This permission is a recommendation to play music from local</string>
+    <string name="title_open_dialog">Open</string>
+    <string name="title_cancel_dialog">Cancel</string>
 </resources>

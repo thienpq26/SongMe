@@ -2,16 +2,15 @@ package com.example.songme.data.source.remote.ResponceFromAPI
 
 import com.example.songme.data.model.Track
 import com.example.songme.utils.*
-import com.example.songme.utils.Constants.CONNECT_TIMEOUT
-import com.example.songme.utils.Constants.READ_TIMEOUT
-import com.example.songme.utils.Constants.REQUEST_METHOD
+import com.example.songme.utils.Constants.MESSAGE_ERROR_CONNECTION
+import com.example.songme.utils.RemoteConstants.CONNECT_TIMEOUT
+import com.example.songme.utils.RemoteConstants.READ_TIMEOUT
+import com.example.songme.utils.RemoteConstants.REQUEST_METHOD
 import org.json.JSONArray
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-
-private const val MESSSAGE_ERROR = "Connection error"
 
 class TrackResponseHandler private constructor() : DataResponseHandler {
 
@@ -28,7 +27,7 @@ class TrackResponseHandler private constructor() : DataResponseHandler {
                 connectTimeout = CONNECT_TIMEOUT
                 readTimeout = READ_TIMEOUT
                 if (responseCode != HttpURLConnection.HTTP_OK) {
-                    throw IOException(MESSSAGE_ERROR)
+                    throw IOException(MESSAGE_ERROR_CONNECTION)
                 }
                 responseData = jsonToListTrack(InputStreamReader(inputStream).getJsonString())
             }
@@ -49,9 +48,9 @@ class TrackResponseHandler private constructor() : DataResponseHandler {
     }
 
     companion object {
-        private var singleInstance: TrackResponseHandler? = null
+        private var instance: TrackResponseHandler? = null
         fun getInstance(): TrackResponseHandler {
-            return singleInstance ?: TrackResponseHandler().also { singleInstance = it }
+            return instance ?: TrackResponseHandler().also { instance = it }
         }
     }
 }

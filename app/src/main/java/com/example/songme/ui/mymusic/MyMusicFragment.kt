@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.songme.R
 import com.example.songme.data.model.Track
+import com.example.songme.data.repository.TrackRepository
+import com.example.songme.data.source.local.TrackLocalDataSource
+import com.example.songme.data.source.remote.TrackRemoteDataSource
 import com.example.songme.ui.adapter.TrackAdapter
 import com.example.songme.utils.Constants.FLAG_LOCAL
 import com.example.songme.utils.Constants.TAG_ACTION_BOTTOM
@@ -15,6 +18,16 @@ import kotlinx.android.synthetic.main.fragment_my_music.*
 
 class MyMusicFragment private constructor() : BottomSheetDialogFragment(), MyMusicContract.View {
 
+    private val presenter: MyMusicContract.Presenter by lazy {
+        MyMusicPresenter(
+            this,
+            TrackRepository.getInstance(
+                TrackLocalDataSource.getInstance(activity!!.contentResolver),
+                TrackRemoteDataSource.getInstance()
+            )
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,6 +36,7 @@ class MyMusicFragment private constructor() : BottomSheetDialogFragment(), MyMus
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.getLocalTracks()
     }
 
     override fun showTracks(tracks: List<Track>) {

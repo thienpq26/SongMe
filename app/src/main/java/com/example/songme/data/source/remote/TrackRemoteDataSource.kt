@@ -6,20 +6,17 @@ import com.example.songme.data.source.OnTracksLoadedCallback
 import com.example.songme.data.source.TrackDataSource
 import com.example.songme.data.source.remote.ResponceFromAPI.GetResponseAsync
 import com.example.songme.data.source.remote.ResponceFromAPI.TrackResponseHandler
-import com.example.songme.utils.Constants.AUTHORITY_SOUNDCLOUD
-import com.example.songme.utils.Constants.CLIENT_ID
-import com.example.songme.utils.Constants.GENRES
-import com.example.songme.utils.Constants.KEYWORD
-import com.example.songme.utils.Constants.PATH_TRACK
-import com.example.songme.utils.Constants.SCHEME_HTTP
+import com.example.songme.utils.RemoteConstants.AUTHORITY_SOUNDCLOUD
+import com.example.songme.utils.RemoteConstants.CLIENT_ID
+import com.example.songme.utils.RemoteConstants.GENRES
+import com.example.songme.utils.RemoteConstants.KEYWORD
+import com.example.songme.utils.RemoteConstants.PATH_TRACK
+import com.example.songme.utils.RemoteConstants.SCHEME_HTTP
 
 class TrackRemoteDataSource private constructor() : TrackDataSource.Remote {
 
-    override fun getTracks(keyword: String, callback: OnTracksLoadedCallback) {
-        GetResponseAsync(
-            TrackResponseHandler.getInstance(),
-            callback
-        ).execute(
+    override fun getRemoteTracks(keyword: String, callback: OnTracksLoadedCallback) {
+        GetResponseAsync(TrackResponseHandler.getInstance(), callback).execute(
             DataRequest(
                 SCHEME_HTTP,
                 AUTHORITY_SOUNDCLOUD,
@@ -33,10 +30,7 @@ class TrackRemoteDataSource private constructor() : TrackDataSource.Remote {
     }
 
     override fun getGenres(genres: String, callback: OnTracksLoadedCallback) {
-        GetResponseAsync(
-            TrackResponseHandler.getInstance(),
-            callback
-        ).execute(
+        GetResponseAsync(TrackResponseHandler.getInstance(), callback).execute(
             DataRequest(
                 SCHEME_HTTP,
                 AUTHORITY_SOUNDCLOUD,
@@ -50,10 +44,7 @@ class TrackRemoteDataSource private constructor() : TrackDataSource.Remote {
     }
 
     override fun getTrending(callback: OnTracksLoadedCallback) {
-        GetResponseAsync(
-            TrackResponseHandler.getInstance(),
-            callback
-        ).execute(
+        GetResponseAsync(TrackResponseHandler.getInstance(), callback).execute(
             DataRequest(
                 SCHEME_HTTP,
                 AUTHORITY_SOUNDCLOUD,
@@ -66,9 +57,9 @@ class TrackRemoteDataSource private constructor() : TrackDataSource.Remote {
     }
 
     companion object {
-        private var singleInstance: TrackRemoteDataSource? = null
+        private var instance: TrackRemoteDataSource? = null
         fun getInstance(): TrackRemoteDataSource {
-            return singleInstance ?: TrackRemoteDataSource().also { singleInstance = it }
+            return instance ?: TrackRemoteDataSource().also { instance = it }
         }
     }
 }

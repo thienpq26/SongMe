@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.songme.R
 import com.example.songme.data.model.Track
 import com.example.songme.data.repository.TrackRepository
+import com.example.songme.data.source.local.TrackLocalDataSource
 import com.example.songme.data.source.remote.TrackRemoteDataSource
 import com.example.songme.ui.adapter.TrackAdapter
 import com.example.songme.utils.Constants.FLAG_REMOTE
@@ -19,7 +20,10 @@ class HomeFragment private constructor() : Fragment(), HomeContentContract.View 
     private val presenter: HomeContentContract.Presenter by lazy {
         HomeContentPresenter(
             this,
-            TrackRepository.getInstance(TrackRemoteDataSource.getInstance())
+            TrackRepository.getInstance(
+                TrackLocalDataSource.getInstance(activity!!.contentResolver),
+                TrackRemoteDataSource.getInstance()
+            )
         )
     }
 

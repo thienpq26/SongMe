@@ -1,6 +1,10 @@
 package com.example.songme.data.model
 
+import android.content.ContentUris
+import android.database.Cursor
+import android.net.Uri
 import android.os.Parcelable
+import android.provider.MediaStore
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONObject
 
@@ -21,16 +25,16 @@ const val AUTHOR = "username"
 @Parcelize
 data class Track(
     val id: String,
-    val king: String,
-    val createdAt: String,
-    val lastModified: String,
+    val king: String = "",
+    val createdAt: String = "",
+    val lastModified: String = "",
     val title: String,
     val duration: Long,
     val streamUrl: String,
-    val uri: String,
+    val uri: String = "",
     val imageUrl: String?,
-    val genres: String,
-    val tagList: String,
+    val genres: String = "",
+    val tagList: String = "",
     val author: String
 ) : Parcelable {
     constructor(jsonObject: JSONObject) : this(
@@ -46,5 +50,16 @@ data class Track(
         genres = jsonObject.optString(GENRES),
         tagList = jsonObject.optString(TAG_LIST),
         author = jsonObject.getJSONObject(USER).optString(AUTHOR)
+    )
+
+    constructor(cursor: Cursor, uri: String) : this(
+        id = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID)).toString(),
+        title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)),
+        duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)),
+        streamUrl = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)),
+        imageUrl = ContentUris.withAppendedId(
+            Uri.parse(uri), cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+        ).toString(),
+        author = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
     )
 }
