@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorPrimaryDark">@color/color_dark_green</item>
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
@@ -18,5 +18,11 @@
         <item name="android:layout_marginTop">@dimen/dp_5</item>
         <item name="android:layout_marginBottom">@dimen/dp_5</item>
         <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="ButtonControlTrack">
+        <item name="android:padding">@dimen/dp_20</item>
+        <item name="layout_constraintHeight_percent">0.17</item>
+        <item name="layout_constraintWidth_percent">0.2</item>
     </style>
 </resources>

@@ -6,4 +6,5 @@
     <color name="color_gray_background">#DDDDDD</color>
     <color name="color_gray_singer">#606C78</color>
     <color name="color_purple">#810585</color>
+    <color name="color_dark_green">#0F043E</color>
 </resources>

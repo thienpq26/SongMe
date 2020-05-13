@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetPlaymusic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_dark_green"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerTrackCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSinger" />
+
+    <ImageView
+        android:id="@+id/buttonArrowDown"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/dp_5"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.15"
+        app:srcCompat="@drawable/ic_keyboard_arrow_down" />
+
+    <TextView
+        android:id="@+id/textTrackTitle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline19"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toEndOf="@+id/buttonArrowDown"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <TextView
+        android:id="@+id/textSinger"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline19"
+        app:layout_constraintHeight_percent="0.04"
+        app:layout_constraintStart_toEndOf="@+id/buttonArrowDown"
+        app:layout_constraintTop_toBottomOf="@+id/textTrackTitle" />
+
+    <TextView
+        android:id="@+id/textCurrentTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_20"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textTotalTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.1" />
+
+    <TextView
+        android:id="@+id/textTotalTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_20"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBarTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBarTime"
+        app:layout_constraintWidth_percent="0.1" />
+
+    <SeekBar
+        android:id="@+id/seekBarTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPlayCircle"
+        app:layout_constraintEnd_toStartOf="@+id/textTotalTime"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textCurrentTime" />
+
+    <ImageView
+        android:id="@+id/buttonShuffle"
+        style="@style/ButtonControlTrack"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_shuffle" />
+
+    <ImageView
+        android:id="@+id/buttonSkipPrevious"
+        style="@style/ButtonControlTrack"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonShuffle"
+        app:srcCompat="@drawable/ic_skip_previous_white" />
+
+    <ImageView
+        android:id="@+id/buttonPlayCircle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSkipNext"
+        app:layout_constraintHeight_percent="0.17"
+        app:layout_constraintStart_toEndOf="@+id/buttonSkipPrevious"
+        app:layout_constraintWidth_percent="0.2"
+        app:srcCompat="@drawable/ic_play_circle_white" />
+
+    <ImageView
+        android:id="@+id/buttonSkipNext"
+        style="@style/ButtonControlTrack"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonRepeat"
+        app:srcCompat="@drawable/ic_skip_next_white" />
+
+    <ImageView
+        android:id="@+id/buttonRepeat"
+        style="@style/ButtonControlTrack"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_repeat" />
+</androidx.constraintlayout.widget.ConstraintLayout>

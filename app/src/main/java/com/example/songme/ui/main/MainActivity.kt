@@ -17,7 +17,7 @@ import com.example.songme.ui.mymusic.MyMusicFragment
 import com.example.songme.utils.Constants.STORAGE_PERMISSION_CODE
 import com.example.songme.utils.showMessage
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
