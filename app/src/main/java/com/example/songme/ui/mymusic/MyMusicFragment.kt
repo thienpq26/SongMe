@@ -9,7 +9,9 @@ import com.example.songme.data.model.Track
 import com.example.songme.data.repository.TrackRepository
 import com.example.songme.data.source.local.TrackLocalDataSource
 import com.example.songme.data.source.remote.TrackRemoteDataSource
+import com.example.songme.service.MusicService
 import com.example.songme.ui.adapter.TrackAdapter
+import com.example.songme.ui.adapter.TrackAdapter.OnSendDataSelectedListener
 import com.example.songme.utils.Constants.FLAG_LOCAL
 import com.example.songme.utils.Constants.TAG_ACTION_BOTTOM
 import com.example.songme.utils.showMessage
@@ -27,6 +29,11 @@ class MyMusicFragment private constructor() : BottomSheetDialogFragment(), MyMus
             )
         )
     }
+    private lateinit var callback: OnSendDataSelectedListener
+
+    fun setOnSendDataSelectedListener(callback: OnSendDataSelectedListener) {
+        this.callback = callback
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +48,8 @@ class MyMusicFragment private constructor() : BottomSheetDialogFragment(), MyMus
 
     override fun showTracks(tracks: List<Track>) {
         recyclerLocalTrack.adapter = TrackAdapter(FLAG_LOCAL, { item, position ->
-            TODO("Handle Click on recycler view item")
+            activity?.let { it.startService(MusicService.getIntent(it, item, position)) }
+            callback.sendData(item, position)
         }, { item, position ->
             showActionTrack()
         }).apply { updateData(tracks) }

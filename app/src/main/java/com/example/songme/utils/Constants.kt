@@ -13,4 +13,10 @@ object Constants {
     const val EXTERNAL = "external"
     const val AUDIO = "audio"
     const val ALBUMART = "albumart"
+    const val TIME_UPDATE_TRACK = 100
+    const val TIME_FORMAT = "mm:ss"
+    const val EXTRA_TRACKS_LIST = "EXTRA_TRACKS_LIST"
+    const val EXTRA_TRACK_POSITION = "EXTRA_TRACK_POSITION"
+    const val DEFAULT_POSITION = 0
+    const val POSITION_VALUE_ONE = 1
 }

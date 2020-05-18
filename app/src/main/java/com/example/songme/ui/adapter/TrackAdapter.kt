@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.horizontal_linear_item_track.view.*
 
 class TrackAdapter(
     private val flag: Int,
-    private val onItemClick: (Track, Int) -> Unit = { _, _ -> },
+    private val onItemClick: (List<Track>, Int) -> Unit = { _, _ -> },
     private val onActionClick: (Track, Int) -> Unit = { _, _ -> }
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -48,37 +48,37 @@ class TrackAdapter(
 
     class RemoteViewHolder(
         itemView: View,
-        private val onItemClick: (Track, Int) -> Unit
+        private val onItemClick: (List<Track>, Int) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
-        fun bindData(track: Track) {
+        fun bindData(tracks: List<Track>, position: Int) {
             itemView.run {
                 Glide.with(itemView)
-                    .load(track.imageUrl)
+                    .load(tracks[position].imageUrl)
                     .error(R.drawable.ic_music_black)
                     .into(imageTrack)
-                textTrackTitle.text = track.title
-                textSinger.text = track.author
-                setOnClickListener { onItemClick(track, adapterPosition) }
+                textTrackTitle.text = tracks[position].title
+                textSinger.text = tracks[position].author
+                setOnClickListener { onItemClick(tracks, adapterPosition) }
             }
         }
     }
 
     class LocalViewHolder(
         itemView: View,
-        private val onItemClick: (Track, Int) -> Unit,
+        private val onItemClick: (List<Track>, Int) -> Unit,
         private val onActionClick: (Track, Int) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
-        fun bindData(track: Track) {
+        fun bindData(tracks: List<Track>, position: Int) {
             itemView.run {
                 Glide.with(itemView)
-                    .load(track.imageUrl)
+                    .load(tracks[position].imageUrl)
                     .error(R.drawable.ic_music_black)
                     .into(imageTrack)
-                textTrackTitle.text = track.title
-                textSinger.text = track.author
-                setOnClickListener { onItemClick(track, adapterPosition) }
+                textTrackTitle.text = tracks[position].title
+                textSinger.text = tracks[position].author
+                setOnClickListener { onItemClick(tracks, adapterPosition) }
                 buttonMore.setOnClickListener {
-                    onActionClick(track, adapterPosition)
+                    onActionClick(tracks[position], adapterPosition)
                 }
             }
         }
@@ -86,8 +86,12 @@ class TrackAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is LocalViewHolder -> holder.bindData(tracks[position])
-            is RemoteViewHolder -> holder.bindData(tracks[position])
+            is LocalViewHolder -> holder.bindData(tracks, position)
+            is RemoteViewHolder -> holder.bindData(tracks, position)
         }
+    }
+
+    interface OnSendDataSelectedListener {
+        fun sendData(tracks: List<Track>, position: Int)
     }
 }

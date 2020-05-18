@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toTopOf="@+id/seekBarTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSinger" />
+        app:layout_constraintTop_toBottomOf="@+id/textSingerPlay" />
 
     <ImageView
         android:id="@+id/buttonArrowDown"
@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/ic_keyboard_arrow_down" />
 
     <TextView
-        android:id="@+id/textTrackTitle"
+        android:id="@+id/textTrackTitlePlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
@@ -52,7 +52,7 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <TextView
-        android:id="@+id/textSinger"
+        android:id="@+id/textSingerPlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintHeight_percent="0.04"
         app:layout_constraintStart_toEndOf="@+id/buttonArrowDown"
-        app:layout_constraintTop_toBottomOf="@+id/textTrackTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textTrackTitlePlay" />
 
     <TextView
         android:id="@+id/textCurrentTime"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_10"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp_20"
+        android:textSize="@dimen/sp_14"
         app:layout_constraintBaseline_toBaselineOf="@+id/textTotalTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.1" />
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_10"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp_20"
+        android:textSize="@dimen/sp_14"
         app:layout_constraintBottom_toBottomOf="@+id/seekBarTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/seekBarTime"

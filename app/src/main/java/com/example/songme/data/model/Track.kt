@@ -5,6 +5,8 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Parcelable
 import android.provider.MediaStore
+import com.example.songme.BuildConfig
+import com.example.songme.utils.RemoteConstants.CLIENT_ID
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONObject
 
@@ -29,7 +31,7 @@ data class Track(
     val createdAt: String = "",
     val lastModified: String = "",
     val title: String,
-    val duration: Long,
+    val duration: Int,
     val streamUrl: String,
     val uri: String = "",
     val imageUrl: String?,
@@ -43,8 +45,8 @@ data class Track(
         createdAt = jsonObject.optString(CREATE_AT),
         lastModified = jsonObject.optString(LAST_MODIfIED),
         title = jsonObject.optString(TITLE),
-        duration = jsonObject.optString(DURATION).toLong(),
-        streamUrl = jsonObject.optString(STREAM_URL),
+        duration = jsonObject.optString(DURATION).toInt(),
+        streamUrl = jsonObject.optString(STREAM_URL) + "?${CLIENT_ID}=${BuildConfig.API_KEY}",
         uri = jsonObject.optString(URI),
         imageUrl = jsonObject.optString(IMAGE_URL),
         genres = jsonObject.optString(GENRES),
@@ -55,7 +57,7 @@ data class Track(
     constructor(cursor: Cursor, uri: String) : this(
         id = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID)).toString(),
         title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)),
-        duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)),
+        duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)),
         streamUrl = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)),
         imageUrl = ContentUris.withAppendedId(
             Uri.parse(uri), cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
