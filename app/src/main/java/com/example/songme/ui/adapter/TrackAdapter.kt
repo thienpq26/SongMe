@@ -93,5 +93,6 @@ class TrackAdapter(
 
     interface OnSendDataSelectedListener {
         fun sendData(tracks: List<Track>, position: Int)
+        fun sendAction()
     }
 }

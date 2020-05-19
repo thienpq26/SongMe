@@ -19,4 +19,5 @@ object Constants {
     const val EXTRA_TRACK_POSITION = "EXTRA_TRACK_POSITION"
     const val DEFAULT_POSITION = 0
     const val POSITION_VALUE_ONE = 1
+    const val MP3_EXTENSION = ".mp3"
 }

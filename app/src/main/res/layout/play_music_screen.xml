@@ -94,7 +94,7 @@
         android:layout_marginStart="@dimen/dp_5"
         android:layout_marginEnd="@dimen/dp_5"
         android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPlayCircle"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPlay"
         app:layout_constraintEnd_toStartOf="@+id/textTotalTime"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textCurrentTime" />
@@ -120,7 +120,7 @@
         app:srcCompat="@drawable/ic_skip_previous_white" />
 
     <ImageView
-        android:id="@+id/buttonPlayCircle"
+        android:id="@+id/buttonPlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@null"
@@ -151,4 +151,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_repeat" />
+
+    <ImageView
+        android:id="@+id/buttonDownload"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/viewPagerTrackCover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_more_white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

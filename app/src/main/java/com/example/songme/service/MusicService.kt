@@ -37,16 +37,19 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
 
     override fun onBind(intent: Intent?): IBinder? = binder
 
-    override fun onCompletion(mediaPlayer: MediaPlayer?) {
-        mediaPlayerManager?.onCompletion()
-    }
-
     fun setOnMediaChangeListener(onMediaPlayChange: ServiceContract.OnMediaPlayChange?) {
         mediaPlayerManager?.setOnMediaChangeListener(onMediaPlayChange)
     }
 
     fun pauseTrack() {
         mediaPlayerManager?.pauseTrack()
+    }
+
+    fun shuffleTrack(isShuffle: Boolean) {
+        mediaPlayerManager?.apply {
+            if (isShuffle) turnOnShuffledMode()
+            else turnOffShuffledMode()
+        }
     }
 
     fun nextTrack() {
@@ -65,17 +68,29 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         mediaPlayerManager?.seekTo(duration)
     }
 
+    fun downloadTrack() {
+        mediaPlayerManager?.downloadTrack()
+    }
+
     fun getCurrentTrack(): Track? = mediaPlayerManager?.getCurrentTrack()
 
     fun getTracks(): List<Track?>? = mediaPlayerManager?.getTracks()
 
-    override fun onDestroy() {
-        mediaPlayerManager?.release()
-        super.onDestroy()
+    fun changeLoop() {
+        mediaPlayerManager?.changeLoop()
     }
 
     override fun onPrepared(mp: MediaPlayer?) {
         mediaPlayerManager?.onPrepared()
+    }
+
+    override fun onCompletion(mp: MediaPlayer?) {
+        mediaPlayerManager?.onCompletion()
+    }
+
+    override fun onDestroy() {
+        mediaPlayerManager?.release()
+        super.onDestroy()
     }
 
     inner class TrackBinder : Binder() {

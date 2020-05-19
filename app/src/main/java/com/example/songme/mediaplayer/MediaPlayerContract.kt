@@ -12,9 +12,11 @@ interface MediaPlayerContract {
     fun nextTrack()
     fun prevTrack()
     fun changeLoop()
-    fun changeShuffled()
+    fun turnOnShuffledMode()
+    fun turnOffShuffledMode()
     fun getTracks(): List<Track>
     fun release()
     fun onPrepared()
     fun onCompletion()
+    fun downloadTrack()
 }

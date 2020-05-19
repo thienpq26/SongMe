@@ -37,7 +37,8 @@ data class Track(
     val imageUrl: String?,
     val genres: String = "",
     val tagList: String = "",
-    val author: String
+    val author: String,
+    val isDownload: Boolean = false
 ) : Parcelable {
     constructor(jsonObject: JSONObject) : this(
         id = jsonObject.optString(ID),
@@ -51,7 +52,8 @@ data class Track(
         imageUrl = jsonObject.optString(IMAGE_URL),
         genres = jsonObject.optString(GENRES),
         tagList = jsonObject.optString(TAG_LIST),
-        author = jsonObject.getJSONObject(USER).optString(AUTHOR)
+        author = jsonObject.getJSONObject(USER).optString(AUTHOR),
+        isDownload = true
     )
 
     constructor(cursor: Cursor, uri: String) : this(

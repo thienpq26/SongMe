@@ -4,7 +4,6 @@ import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.AlertDialog
 import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Build
@@ -13,6 +12,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.view.MenuItem
 import android.view.View
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.songme.R
 import com.example.songme.data.model.Track
+import com.example.songme.mediaplayer.LoopType
 import com.example.songme.service.ServiceContract
 import com.example.songme.service.MusicService
 import com.example.songme.ui.genres.GenresFragment
@@ -28,9 +29,12 @@ import com.example.songme.ui.home.ActionBarFragment
 import com.example.songme.ui.home.HomeFragment
 import com.example.songme.ui.mymusic.MyMusicFragment
 import com.example.songme.ui.adapter.TrackAdapter.OnSendDataSelectedListener
+import com.example.songme.ui.playmusic.BottomSheetDownloadFragment
 import com.example.songme.utils.Constants.STORAGE_PERMISSION_CODE
+import com.example.songme.utils.Constants.TAG_ACTION_BOTTOM
 import com.example.songme.utils.Constants.TIME_FORMAT
 import com.example.songme.utils.Constants.TIME_UPDATE_TRACK
+import com.example.songme.utils.assignViews
 import com.example.songme.utils.showMessage
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -42,11 +46,14 @@ class MainActivity : AppCompatActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener,
     OnSendDataSelectedListener,
     ServiceContract.OnMediaPlayChange,
-    View.OnClickListener {
+    View.OnClickListener,
+    SeekBar.OnSeekBarChangeListener {
 
     private var musicService: MusicService? = null
     private var isBound = false
+    private var isShuffle = false
     private var sheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
+    private var bottomSheetDownload: BottomSheetDownloadFragment? = null
     private var handler: Handler? = null
     private val serviceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -89,11 +96,22 @@ class MainActivity : AppCompatActivity(),
     private fun initListeners() {
         bottomNav?.setOnNavigationItemSelectedListener(this)
         bottomNav.menu.findItem(R.id.navigation_home).isChecked = true
-        layoutPlay.setOnClickListener(this)
-        buttonArrowDown.setOnClickListener(this)
+        assignViews(
+            buttonShuffle,
+            buttonSkipPrevious,
+            buttonPlay,
+            buttonSkipNext,
+            layoutPlay,
+            buttonArrowDown,
+            buttonSkipPreviousSmall,
+            buttonPlaySmall,
+            buttonSkipNextSmall,
+            buttonDownload,
+            buttonRepeat
+        )
+        seekBarTime.setOnSeekBarChangeListener(this)
         sheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -106,6 +124,7 @@ class MainActivity : AppCompatActivity(),
         when (fragment) {
             is HomeFragment -> fragment.setOnSendDataSelectedListener(this)
             is MyMusicFragment -> fragment.setOnSendDataSelectedListener(this)
+            is BottomSheetDownloadFragment -> fragment.setOnSendDataSelectedListener(this)
         }
     }
 
@@ -170,6 +189,10 @@ class MainActivity : AppCompatActivity(),
         sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
+    override fun sendAction() {
+        musicService?.downloadTrack()
+    }
+
     override fun onTrackChange(track: Track?) {
         track?.also {
             textTrackTitlePlay.text = it.title
@@ -188,11 +211,38 @@ class MainActivity : AppCompatActivity(),
         onPlaySateChanged(isPlaying)
     }
 
+    override fun setShuffle(isShuffle: Boolean) {
+        val shuffleIcon = if (isShuffle) R.drawable.ic_shuffle_purple
+        else R.drawable.ic_shuffle
+        buttonShuffle.setImageResource(shuffleIcon)
+    }
+
+    override fun setLoop(loopType: Int) {
+        val repeatIconId = when (loopType) {
+            LoopType.NO -> R.drawable.ic_repeat
+            LoopType.ALL -> R.drawable.ic_repeat_purple
+            else -> R.drawable.ic_repeat_one
+        }
+        buttonRepeat.setImageResource(repeatIconId)
+    }
+
+    override fun isDownload(isDownload: Boolean?) {
+        isDownload?.let {
+            buttonDownload.isVisible = it == true
+        }
+    }
+
+    override fun onDownloadSucceeded() {
+        bottomSheetDownload?.dismiss()
+    }
+
     private fun onPlaySateChanged(isPlaying: Boolean) {
         if (isPlaying) {
-            buttonPlayCircle.setImageResource(R.drawable.ic_pause_circle)
+            buttonPlay.setImageResource(R.drawable.ic_pause_circle)
+            buttonPlaySmall.setImageResource(R.drawable.ic_pause_black)
         } else {
-            buttonPlayCircle.setImageResource(R.drawable.ic_play_circle_white)
+            buttonPlay.setImageResource(R.drawable.ic_play_circle_white)
+            buttonPlaySmall.setImageResource(R.drawable.ic_play_arrow_black)
         }
     }
 
@@ -224,7 +274,34 @@ class MainActivity : AppCompatActivity(),
             when (v?.id) {
                 R.id.layoutPlay -> sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
                 R.id.buttonArrowDown -> sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                R.id.buttonShuffle -> {
+                    isShuffle = !isShuffle
+                    shuffleTrack(isShuffle)
+                }
+                R.id.buttonSkipPrevious -> prevTrack()
+                R.id.buttonPlay -> pauseTrack()
+                R.id.buttonSkipNext -> nextTrack()
+                R.id.buttonSkipPreviousSmall -> prevTrack()
+                R.id.buttonPlaySmall -> pauseTrack()
+                R.id.buttonSkipNextSmall -> nextTrack()
+                R.id.buttonDownload -> showActionDownload()
+                R.id.buttonRepeat -> changeLoop()
             }
         }
+    }
+
+    private fun showActionDownload() {
+        bottomSheetDownload = BottomSheetDownloadFragment.newInstance()
+        bottomSheetDownload?.show(supportFragmentManager, TAG_ACTION_BOTTOM)
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+        musicService?.seekTo(seekBarTime.progress)
     }
 }
