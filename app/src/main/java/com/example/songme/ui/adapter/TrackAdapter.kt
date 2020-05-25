@@ -57,6 +57,7 @@ class TrackAdapter(
                     .error(R.drawable.ic_music_black)
                     .into(imageTrack)
                 textTrackTitle.text = tracks[position].title
+                textTrackTitle.isSelected = true
                 textSinger.text = tracks[position].author
                 setOnClickListener { onItemClick(tracks, adapterPosition) }
             }
@@ -75,6 +76,7 @@ class TrackAdapter(
                     .error(R.drawable.ic_music_black)
                     .into(imageTrack)
                 textTrackTitle.text = tracks[position].title
+                textTrackTitle.isSelected = true
                 textSinger.text = tracks[position].author
                 setOnClickListener { onItemClick(tracks, adapterPosition) }
                 buttonMore.setOnClickListener {

@@ -4,7 +4,7 @@ import com.example.songme.data.model.Track
 
 interface ServiceContract {
     interface OnMediaPlayChange {
-        fun onTrackChange(track: Track?)
+        fun onTrackChange(tracks: List<Track>, position: Int)
         fun onMediaStateChange(isPlaying: Boolean)
         fun setShuffle(isShuffle: Boolean)
         fun setLoop(loopType: Int)

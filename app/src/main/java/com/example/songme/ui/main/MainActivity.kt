@@ -24,12 +24,15 @@ import com.example.songme.data.model.Track
 import com.example.songme.mediaplayer.LoopType
 import com.example.songme.service.ServiceContract
 import com.example.songme.service.MusicService
+import com.example.songme.ui.adapter.PagerAdapter
 import com.example.songme.ui.genres.GenresFragment
 import com.example.songme.ui.home.ActionBarFragment
 import com.example.songme.ui.home.HomeFragment
 import com.example.songme.ui.mymusic.MyMusicFragment
 import com.example.songme.ui.adapter.TrackAdapter.OnSendDataSelectedListener
 import com.example.songme.ui.playmusic.BottomSheetDownloadFragment
+import com.example.songme.ui.playmusic.PageTrackCoverFragment
+import com.example.songme.ui.playmusic.PageTracksFragment
 import com.example.songme.utils.Constants.STORAGE_PERMISSION_CODE
 import com.example.songme.utils.Constants.TAG_ACTION_BOTTOM
 import com.example.songme.utils.Constants.TIME_FORMAT
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity(),
     private var sheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
     private var bottomSheetDownload: BottomSheetDownloadFragment? = null
     private var handler: Handler? = null
+    private var pagerAdapter: PagerAdapter? = null
     private val serviceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             val binder = service as MusicService.TrackBinder
@@ -193,8 +197,9 @@ class MainActivity : AppCompatActivity(),
         musicService?.downloadTrack()
     }
 
-    override fun onTrackChange(track: Track?) {
-        track?.also {
+    override fun onTrackChange(tracks: List<Track>, position: Int) {
+        val track = tracks[position]
+        track.also {
             textTrackTitlePlay.text = it.title
             textSingerPlay.text = it.author
             textNamePlaySmall.text = it.title
@@ -205,6 +210,19 @@ class MainActivity : AppCompatActivity(),
                 .error(R.drawable.ic_music_black)
                 .into(imagePlaySmall)
         }
+        updatePager(track, tracks)
+    }
+
+    private fun updatePager(track: Track, tracks: List<Track>) {
+        pagerAdapter = PagerAdapter(supportFragmentManager)
+        pagerAdapter?.apply {
+            track.imageUrl?.let { PageTrackCoverFragment.newInstance(it) }?.let {
+                addFragment(it, getString(R.string.title_tab_play))
+            }
+            addFragment(PageTracksFragment.newInstance(tracks), getString(R.string.title_tab_list))
+        }
+        viewPagerTrackCover.adapter = pagerAdapter
+        tabLayoutPlayMusic.setupWithViewPager(viewPagerTrackCover)
     }
 
     override fun onMediaStateChange(isPlaying: Boolean) {

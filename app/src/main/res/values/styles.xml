@@ -14,6 +14,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextTitleNameTrack">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
     <style name="RecyclerViewTracks">
         <item name="android:layout_marginTop">@dimen/dp_5</item>
         <item name="android:layout_marginBottom">@dimen/dp_5</item>

@@ -56,7 +56,7 @@ class MediaPlayerManager private constructor(private val musicService: MusicServ
             track?.isDownload.let {
                 onMediaPlayChange?.isDownload(it)
             }
-            onMediaPlayChange?.onTrackChange(track)
+            tracks?.let { onMediaPlayChange?.onTrackChange(it,currentPosition) }
         }
     }
 

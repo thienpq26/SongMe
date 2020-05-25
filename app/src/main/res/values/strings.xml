@@ -19,4 +19,6 @@
     <string name="title_cancel_dialog">Cancel</string>
     <string name="title_tracks">Tracks</string>
     <string name="title_download">Download</string>
+    <string name="title_tab_play">Play</string>
+    <string name="title_tab_list">List</string>
 </resources>
