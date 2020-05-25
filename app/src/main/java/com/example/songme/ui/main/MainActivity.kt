@@ -30,6 +30,7 @@ import com.example.songme.ui.home.ActionBarFragment
 import com.example.songme.ui.home.HomeFragment
 import com.example.songme.ui.mymusic.MyMusicFragment
 import com.example.songme.ui.adapter.TrackAdapter.OnSendDataSelectedListener
+import com.example.songme.ui.genres.GenreFragment
 import com.example.songme.ui.playmusic.BottomSheetDownloadFragment
 import com.example.songme.ui.playmusic.PageTrackCoverFragment
 import com.example.songme.ui.playmusic.PageTracksFragment
@@ -129,6 +130,7 @@ class MainActivity : AppCompatActivity(),
             is HomeFragment -> fragment.setOnSendDataSelectedListener(this)
             is MyMusicFragment -> fragment.setOnSendDataSelectedListener(this)
             is BottomSheetDownloadFragment -> fragment.setOnSendDataSelectedListener(this)
+            is GenreFragment -> fragment.setOnSendDataSelectedListener(this)
         }
     }
 

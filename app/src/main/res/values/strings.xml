@@ -21,4 +21,12 @@
     <string name="title_download">Download</string>
     <string name="title_tab_play">Play</string>
     <string name="title_tab_list">List</string>
+    <string name="title_tab_vpop">Vpop</string>
+    <string name="title_tab_kpop">Kpop</string>
+    <string name="title_tab_us">US</string>
+    <string name="title_tab_uk">UK</string>
+    <string name="title_tab_hip_hop">Hiphop</string>
+    <string name="title_tab_pop">Pop</string>
+    <string name="title_tab_epic">Epic</string>
+    <string name="title_tab_vinahouse">Vinahouse</string>
 </resources>
